@@ -18,17 +18,6 @@ struct config {
     size_t height;            /* frame height - in pixels */
     size_t wh;                /* width x height */
     size_t frame_size;        /* size of 1 frame - in bytes */
-    Sint32 zoom;              /* zoom-factor */
-    Uint32 zoom_width;
-    Uint32 zoom_height;
-    Uint32 grid;              /* grid-mode - on or off */
-    Uint32 y_start_pos;       /* start pos for first Y pel */
-    Uint32 cb_start_pos;      /* start pos for first Cb pel */
-    Uint32 cr_start_pos;      /* start pos for first Cr pel */
-    Uint32 y_only;            /* Grayscale, i.e Luma only */
-    Uint32 cb_only;           /* Only Cb plane */
-    Uint32 cr_only;           /* Only Cr plane */
-    Uint32 y_size;            /* sizeof luma-data for 1 frame - in bytes */
     Uint32 cb_size;           /* sizeof croma-data for 1 frame - in bytes */
     Uint32 cr_size;           /* sizeof croma-data for 1 frame - in bytes */
     Uint8* raw;               /* pointer towards complete frame - frame_size bytes */
@@ -90,17 +79,11 @@ void setup_param(struct config* cfg)
         case YV12:
         case IYUV:
             cfg->frame_size = cfg->wh * 3 / 2;
-            cfg->y_size = cfg->wh;
-            cfg->cb_size = cfg->wh / 4;
-            cfg->cr_size = cfg->wh / 4;
             break;
         case YUY2:
         case UYVY:
         case YVYU:
             cfg->frame_size = cfg->wh * 2;
-            cfg->y_size = cfg->wh;
-            cfg->cb_size = cfg->wh / 2;
-            cfg->cr_size = cfg->wh / 2;
             break;
         default:
             fprintf(stderr, "Unknown format1!\n");
